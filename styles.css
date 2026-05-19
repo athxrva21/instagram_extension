@@ -1,0 +1,90 @@
+/* Instagram Focus - hide Reels and Explore UI elements
+   Selectors target stable href patterns so they survive Instagram's class-name churn. */
+
+/* Hide nav links to Reels and Explore in the left sidebar (desktop) */
+a[href="/reels/"],
+a[href="/explore/"],
+a[href^="/reels/"],
+a[href^="/explore/"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Hide bottom nav Reels and Explore tabs (mobile web view) */
+nav a[href="/reels/"],
+nav a[href="/explore/"] {
+  display: none !important;
+}
+
+/* Hide "Reels" carousel/section that sometimes appears within the home feed.
+   Instagram labels these sections with aria-label or role; we hide any article/section
+   whose descendant link points to /reels/. */
+article:has(a[href^="/reels/"]),
+section:has(> a[href^="/reels/"]),
+div[role="presentation"]:has(> a[href^="/reels/"]) {
+  display: none !important;
+}
+
+/* Reels suggestion thumbnails inside feed posts (links that go to a reel) */
+a[href^="/reel/"] {
+  /* Don't hide individual links blindly — only hide if they're feed suggestions,
+     which is hard to discriminate. Instead, neutralize the link target. */
+  pointer-events: none !important;
+  opacity: 0.35 !important;
+  filter: grayscale(100%);
+}
+
+/* When our blocker overlay is present, freeze the page background */
+html.if-blocked, html.if-blocked body {
+  overflow: hidden !important;
+}
+
+/* Full-page block overlay */
+#instagram-focus-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  text-align: center;
+  padding: 24px;
+}
+#instagram-focus-overlay h1 {
+  font-size: 28px;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+#instagram-focus-overlay p {
+  font-size: 15px;
+  opacity: 0.75;
+  max-width: 420px;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+#instagram-focus-overlay .if-actions {
+  display: flex;
+  gap: 12px;
+}
+#instagram-focus-overlay button,
+#instagram-focus-overlay a.if-btn {
+  appearance: none;
+  border: none;
+  background: #0095f6;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+#instagram-focus-overlay a.if-btn.secondary {
+  background: #262626;
+}

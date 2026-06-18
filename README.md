@@ -2,6 +2,8 @@
 
 A Chrome extension that blocks Instagram **Reels** and the **Explore** page so you can still use the parts of Instagram you actually want: your home feed, direct messages, profiles of people you follow, and normal interactions (like, comment, share, save).
 
+## app link 
+https://get-intagram-focus.netlify.app/
 ## What it does
 
 - Blocks any URL under `/reels/`, `/reel/<id>/`, or `/explore/` and bounces you to your home feed.
